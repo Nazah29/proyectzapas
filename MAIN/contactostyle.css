@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Estilos generales */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  background-color: #f8f8f8;
+  color: #222;
+}
+
+/* Header */
+header {
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+/* Títulos principales */
+h2 {
+  color: #000000;
+  border-bottom: 2px solid #000000;
+  padding-bottom: 5px;
+}
+
+h3 {
+  color: #000;
+  margin-top: 20px;
+}
+
+/* Sección principal */
+#titulonegro {
+  padding: 20px;
+  background-color: #fff;
+  max-width: 800px;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Listas */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  background: #f2f2f2;
+  margin: 8px 0;
+  padding: 10px;
+  border-left: 5px solid #000000;
+  border-radius: 4px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+ul li:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
+  #titulonegro {
+    padding: 10px;
+  }
+  header {
+    font-size: 1.4rem;
+  }
+}
+
+
+/* Links */
+a {
+  color: #000000; /* color normal */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  color: #000000 !important; /* forzar negro al pasar el mouse */
+  text-decoration: underline;
+  transition: color 0.3s ease-in-out;
+}
+
+
+/* Footer opcional (si lo agregas) */
+footer {
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+  margin-top: 20px;
+}
+input.error, textarea.error {
+  border: 2px solid red;
+  background-color: #ffe6e6;
+}
+
+input.correcto, textarea.correcto {
+  border: 2px solid green;
+  background-color: #e6ffe6;
+}
