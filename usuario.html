@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="estilouser.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Login</h2>
+
+        <input type="email" id="email" placeholder="Correo">
+        <input type="password" id="password" placeholder="Contraseña">
+
+        <button id="abrir-register">Register</button>
+        <button id="btn-login">Login</button>
+
+        <p id="mensaje"></p>
+    </div>
+
+    <!-- BOTÓN PARA ABRIR MODAL -->
+
+
+    <!-- MODAL REGISTER -->
+    <div id="modal-register" class="modal">
+        <div class="modal-content">
+            <span id="cerrar-register">&times;</span>
+
+            <h2>Registrarse</h2>
+
+            <input type="text" id="reg-nombre" placeholder="Nombre completo">
+            <input type="email" id="reg-email" placeholder="Correo">
+            <input type="password" id="reg-password" placeholder="Contraseña">
+
+            <button id="btn-registrar-modal">Registrarse</button>
+
+            <p id="mensaje-register"></p>
+        </div>
+    </div>
+
+    <!-- scripts -->
+    <!-- 1. Librería -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- 2. TU CONFIG GLOBAL -->
+    <script src="/MAIN/js/supabase.js"></script>
+
+    <!-- 3. LÓGICA DE USUARIO -->
+    <script src="/MAIN/js/usuario.js"></script>
+
+</body>
+
+</html>
