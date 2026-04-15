@@ -1,9 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-
-  // ==========================
-  // LOGIN
-  // ==========================
   async function login() {
     const email = document.getElementById("email").value
     const password = document.getElementById("password").value
@@ -21,42 +17,69 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ==========================
-  // REGISTER (MODAL)
-  // ==========================
   let bloqueado = false;
 
   async function registerModal() {
-
-    if (bloqueado) return; // 🚫 evita múltiples clicks
+    if (bloqueado) return;
     bloqueado = true;
 
-    const nombre = document.getElementById("reg-nombre").value
-    const email = document.getElementById("reg-email").value
-    const password = document.getElementById("reg-password").value
-    const mensaje = document.getElementById("mensaje-register")
+    const nombre = document.getElementById("reg-nombre").value;
+    const email = document.getElementById("reg-email").value;
+    const password = document.getElementById("reg-password").value;
+    const mensaje = document.getElementById("mensaje-register");
+    const btn = document.getElementById("btn-registrar-modal");
+
+    if (!nombre || !email || !password) {
+      mensaje.textContent = "Completa todos los campos ❌";
+      bloqueado = false;
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Registrando...";
 
     const { data, error } = await supabaseClient.auth.signUp({
       email,
       password
-    })
+    });
 
     if (error) {
-      mensaje.textContent = error.message
-      bloqueado = false
-      return
+      mensaje.textContent = error.message;
+      btn.disabled = false;
+      btn.textContent = "Registrarse";
+      bloqueado = false;
+      return;
     }
 
-    mensaje.textContent = "Registrado correctamente ✅"
+    const user = data.user;
 
-    bloqueado = false
+    if (user) {
+      await supabaseClient.from("usuarios").insert([
+        {
+          auth_id: user.id,
+          nombre: nombre,
+          email: email
+        }
+      ]);
+
+      mensaje.textContent = "Registrado correctamente ✅";
+    } else {
+      mensaje.textContent = "Revisa tu correo 📩";
+    }
+
+    btn.disabled = false;
+    btn.textContent = "Registrarse";
+    bloqueado = false;
   }
 
-  // ==========================
-  // EVENTOS
-  // ==========================
-  document.getElementById("btn-login").addEventListener("click", login)
-  document.getElementById("btn-registrar-modal").addEventListener("click", registerModal)
+  // EVENTOS SEGUROS
+  const btnLogin = document.getElementById("btn-login")
+  if (btnLogin) btnLogin.addEventListener("click", login)
+
+  const btnRegister = document.getElementById("btn-registrar-modal")
+  if (btnRegister) btnRegister.addEventListener("click", registerModal)
+
+
 
   // ==========================
   // MODAL CONTROL
@@ -76,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
       modal.classList.remove("activo")
     }
   })
+
 
 
 
