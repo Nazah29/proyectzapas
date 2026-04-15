@@ -2,7 +2,7 @@
 // CARGAR CATÁLOGO
 // ===============================
 async function cargarCatalogo() {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseClient
     .from('productos')
     .select('*')
 
@@ -23,8 +23,7 @@ async function cargarCatalogo() {
 
     card.innerHTML = `
       <img src="${prod.imagen}" alt="${prod.nombre}">
-      <h4>${prod.nombre}</h4>
-      <p>S/ ${prod.precio}</p>
+
     `
 
     card.addEventListener("click", () => abrirModalProducto(prod))
@@ -46,7 +45,7 @@ async function cargarDetalle() {
 
   if (!idProducto) return;
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseClient
     .from('productos')
     .select('*')
     .eq('id', idProducto)
@@ -107,7 +106,7 @@ cargarCatalogo()
 cargarDetalle()
 
 async function testConexion() {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseClient
     .from('productos')
     .select('*')
 
