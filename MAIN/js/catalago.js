@@ -1,39 +1,50 @@
 // ===============================
 // CARGAR CATÁLOGO
 // ===============================
-async function cargarCatalogo() {
-  const { data, error } = await supabaseClient
-    .from('productos')
-    .select('*')
+window.productosGlobal = [];
 
-  if (error) {
-    console.log(error)
-    return
-  }
+window.renderProductos = function(productos) {
+  const contenedorHigh = document.getElementById("catalogo-high");
+  const contenedorLow = document.getElementById("catalogo-low");
 
-  const contenedorHigh = document.getElementById("catalogo-high")
-  const contenedorLow = document.getElementById("catalogo-low")
+  if (!contenedorHigh || !contenedorLow) return;
 
-  contenedorHigh.innerHTML = ""
-  contenedorLow.innerHTML = ""
+  contenedorHigh.innerHTML = "";
+  contenedorLow.innerHTML = "";
 
-  data.forEach(prod => {
-    const card = document.createElement("div")
-    card.classList.add("card")
+  productos.forEach(prod => {
+    const card = document.createElement("div");
+    card.classList.add("card");
 
     card.innerHTML = `
       <img src="${prod.imagen}" alt="${prod.nombre}">
+    `;
 
-    `
-
-    card.addEventListener("click", () => abrirModalProducto(prod))
+    card.addEventListener("click", () => abrirModalProducto(prod));
 
     if (prod.categoria === "HIGH") {
-      contenedorHigh.appendChild(card)
+      contenedorHigh.appendChild(card);
     } else {
-      contenedorLow.appendChild(card)
+      contenedorLow.appendChild(card);
     }
-  })
+  });
+};
+
+async function cargarCatalogo() {
+  const { data, error } = await supabaseClient
+    .from('productos')
+    .select('*');
+
+  if (error) {
+    console.error("Error al cargar el catálogo:", error);
+    return;
+  }
+
+  // Guardamos en la variable global para uso del buscador
+  window.productosGlobal = data;
+
+  // Renderizamos todo
+  window.renderProductos(window.productosGlobal);
 }
 
 // ===============================

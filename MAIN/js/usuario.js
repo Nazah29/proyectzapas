@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("mensaje").textContent = error.message
     } else {
       document.getElementById("mensaje").textContent = "Login exitoso ✅"
-      window.location.href = "/MAIN/index.html"
+      window.location.href = "MAIN/index.html"
     }
   }
 
@@ -54,15 +54,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const user = data.user;
 
     if (user) {
-      await supabaseClient.from("usuarios").insert([
-        {
-          auth_id: user.id,
-          nombre: nombre,
-          email: email
-        }
-      ]);
+      try {
+        const { error: insertError } = await supabaseClient.from("usuarios").insert([
+          {
+            auth_id: user.id,
+            nombre: nombre,
+            email: email
+          }
+        ]);
 
-      mensaje.textContent = "Registrado correctamente ✅";
+        if (insertError) {
+          console.error("Error al guardar perfil de usuario:", insertError);
+          mensaje.textContent = "Cuenta creada. Por favor contacte soporte (Error de perfil).";
+        } else {
+          mensaje.textContent = "Registrado correctamente ✅";
+        }
+      } catch (err) {
+        console.error("Error de conexión:", err);
+        mensaje.textContent = "Cuenta creada ✅ (Advertencia de conexión)";
+      }
     } else {
       mensaje.textContent = "Revisa tu correo 📩";
     }

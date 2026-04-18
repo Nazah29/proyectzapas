@@ -1,61 +1,50 @@
-const inputBusqueda = document.getElementById("input-busqueda")
-const icono = document.getElementById("icono-buscar")
+const inputBusqueda = document.getElementById("input-busqueda");
+const icono = document.getElementById("icono-buscar");
+const mensajeVacio = document.getElementById("mensaje-vacio");
 
 // abrir buscador
 if (icono && inputBusqueda) {
   icono.addEventListener("click", () => {
-    inputBusqueda.classList.toggle("activo")
-    inputBusqueda.focus()
-  })
+    inputBusqueda.classList.toggle("activo");
+    inputBusqueda.focus();
+  });
 }
 
-// normalizar texto
+// normalizar texto (quitar acentos y mayúsculas)
 function normalizarTexto(t) {
+  if (!t) return "";
   return t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
-// búsqueda simple
-if (inputBusqueda) {
-  inputBusqueda.addEventListener("input", filtrarProductos)
-}
-
-// filtros
-const filtroCategoria = document.getElementById("filtro-categoria");
-const filtroColor = document.getElementById("filtro-color");
-const precioMin = document.getElementById("precio-min");
-const precioMax = document.getElementById("precio-max");
-const mensajeVacio = document.getElementById("mensaje-vacio");
-
 // función principal de filtro
 function filtrarProductos() {
-  const textoB = normalizarTexto(inputBusqueda?.value || "")
-  const catB = filtroCategoria?.value || ""
-  const colB = normalizarTexto(filtroColor?.value || "")
-  const min = precioMin?.value ? parseInt(precioMin.value) : 0
-  const max = precioMax?.value ? parseInt(precioMax.value) : Infinity
+  const textoB = normalizarTexto(inputBusqueda?.value || "");
 
-  let filtrados = productosGlobal.filter(p => {
-    let nombre = normalizarTexto(p.nombre)
-    let color = normalizarTexto(p.color)
+  // Nos aseguramos de que existan productos en la memoria global
+  const productos = window.productosGlobal || [];
+
+  let filtrados = productos.filter(p => {
+    let nombre = normalizarTexto(p.nombre);
+    let color = normalizarTexto(p.color || "");
 
     return (
-      (textoB === "" || nombre.includes(textoB)) &&
-      (catB === "" || p.categoria === catB) &&
-      (colB === "" || color.includes(colB)) &&
-      p.precio >= min &&
-      p.precio <= max
-    )
-  })
+      textoB === "" || 
+      nombre.includes(textoB) || 
+      color.includes(textoB) // Permite buscar también por color escribiéndolo
+    );
+  });
 
   if (mensajeVacio) {
-    mensajeVacio.style.display = filtrados.length === 0 ? "block" : "none"
+    mensajeVacio.style.display = filtrados.length === 0 ? "block" : "none";
   }
 
-  renderProductos(filtrados)
+  // Usar la función global para volver a pintar las zapatillas
+  if (window.renderProductos) {
+    window.renderProductos(filtrados);
+  }
 }
 
-// eventos de filtros
-filtroCategoria?.addEventListener("change", filtrarProductos)
-filtroColor?.addEventListener("change", filtrarProductos)
-precioMin?.addEventListener("input", filtrarProductos)
-precioMax?.addEventListener("input", filtrarProductos)
+// eventos
+if (inputBusqueda) {
+  inputBusqueda.addEventListener("input", filtrarProductos);
+}
