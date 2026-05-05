@@ -3,52 +3,51 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso y Registro - Zapas</title>
     <link rel="stylesheet" href="estilouser.css">
 </head>
 
 <body>
 
-    <div class="container">
-        <h2>Login</h2>
+    <div class="container" id="login-container">
+        <h2>Iniciar Sesión</h2>
 
-        <input type="email" id="email" placeholder="Correo">
-        <input type="password" id="password" placeholder="Contraseña">
+        <input type="email" id="email" placeholder="Correo electrónico" required>
+        <input type="password" id="password" placeholder="Contraseña" required>
 
-        <button id="abrir-register">Register</button>
-        <button id="btn-login">Login</button>
+        <button id="btn-login">Ingresar</button>
+        <button id="abrir-register" class="btn-secondary">¿No tienes cuenta? Regístrate</button>
 
-        <p id="mensaje"></p>
+        <p id="mensaje" class="mensaje"></p>
     </div>
-
-    <!-- BOTÓN PARA ABRIR MODAL -->
-
 
     <!-- MODAL REGISTER -->
     <div id="modal-register" class="modal">
         <div class="modal-content">
-            <span id="cerrar-register">&times;</span>
+            <span id="cerrar-register" class="close">&times;</span>
 
-            <h2>Registrarse</h2>
+            <h2>Crear Cuenta</h2>
+            <p>Completa tus datos para registrarte.</p>
 
-            <input type="text" id="reg-nombre" placeholder="Nombre completo">
-            <input type="email" id="reg-email" placeholder="Correo">
-            <input type="password" id="reg-password" placeholder="Contraseña">
+            <div class="form-grid">
+                <input type="text" id="reg-nombre" placeholder="Nombre completo" required>
+                <input type="email" id="reg-email" placeholder="Correo electrónico" required>
+                <input type="text" id="reg-telefono" placeholder="Teléfono">
+                <input type="text" id="reg-direccion" placeholder="Dirección">
+                <input type="text" id="reg-ciudad" placeholder="Ciudad">
+                <input type="password" id="reg-password" placeholder="Contraseña" required>
+            </div>
 
             <button id="btn-registrar-modal">Registrarse</button>
 
-            <p id="mensaje-register"></p>
+            <p id="mensaje-register" class="mensaje"></p>
         </div>
     </div>
 
     <!-- scripts -->
-    <!-- 1. Librería -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <!-- 2. TU CONFIG GLOBAL -->
     <script src="MAIN/js/supabase.js"></script>
-
-    <!-- 3. LÓGICA DE USUARIO -->
     <script src="MAIN/js/usuario.js"></script>
 
 </body>
