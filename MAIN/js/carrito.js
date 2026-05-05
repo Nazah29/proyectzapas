@@ -15,8 +15,25 @@ document.addEventListener("DOMContentLoaded", () => {
         carrito.classList.remove("activo");
     });
 
-    // Cargar carrito desde localStorage
-    let itemsCarrito = JSON.parse(localStorage.getItem("itemsCarrito")) || [];
+    // Obtener el usuario logueado para crear una clave de carrito única
+    const usuarioLogueadoStr = localStorage.getItem("usuarioLogueado");
+    let cartKey = "itemsCarrito_invitado"; // Carrito por defecto para no logueados
+
+    if (usuarioLogueadoStr) {
+        try {
+            const usuario = JSON.parse(usuarioLogueadoStr);
+            if (usuario.id) {
+                cartKey = `itemsCarrito_${usuario.id}`;
+            } else if (usuario.email) {
+                cartKey = `itemsCarrito_${usuario.email}`;
+            }
+        } catch (e) {
+            console.error("Error parseando usuario", e);
+        }
+    }
+
+    // Cargar carrito desde localStorage usando la clave dinámica
+    let itemsCarrito = JSON.parse(localStorage.getItem(cartKey)) || [];
 
     function actualizarCarrito() {
         carritoItems.innerHTML = "";
@@ -36,8 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         carritoTotal.textContent = `S/ ${total}`;
 
-        // Guardar en localStorage
-        localStorage.setItem("itemsCarrito", JSON.stringify(itemsCarrito));
+        // Guardar en localStorage usando la clave dinámica
+        localStorage.setItem(cartKey, JSON.stringify(itemsCarrito));
 
         const botonesEliminar = carritoItems.querySelectorAll(".eliminar-item");
         botonesEliminar.forEach(btn => {
