@@ -16,8 +16,24 @@
 
 
 </head>
-
 <body class="cuerpo">
+<nav>
+  <div class="hamburguesa" id="btn-menu">
+    <i class="bi bi-list"></i>
+  </div>
+  <div class="nav-links" id="nav-links">
+    <span id="mensaje-bienvenida" style="display: none; color: #ddd; font-size: 16px; margin-right: 15px;"></span>
+    <a href="#galeria">Galería <i class="bi bi-bag"></i></a>
+    <a href="usuario.html">Perfil <i class="bi bi-person-rolodex"></i></a>
+    <a href="carrito.html">Pág. Carrito <i class="bi bi-cart3"></i></a>
+    <a href="#" id="btn-logout" style="display: none; color: #ff4d4d;">Salir <i class="bi bi-box-arrow-right"></i></a>
+  </div>
+  <div class="busqueda-toggle">
+    <i class="bi bi-search" id="icono-buscar"></i>
+    <input type="text" id="input-busqueda" placeholder="Buscar..." />
+  </div>
+  <i class="bi bi-bag" id="icono-carrito"></i>
+</nav>
 
   <div class="hero">
     <header>
@@ -26,18 +42,28 @@
     <p class="descri">Las mejores zapatillas Jordan al mejor precio</p>
   </div>
 
-  <nav>
-    <a href="#galeria">Galería <i class="bi bi-bag"></i></a>
-    <a href="contacto.html">testeo <i class="bi bi-person-rolodex"></i></a>
-    <a href="carrito.html">Mi Carrito <i class="bi bi-cart3"></i></a>
-    <div class="busqueda-toggle">
-      <i class="bi bi-search" id="icono-buscar"></i>
-      <input type="text" id="input-busqueda" placeholder="Buscar..." />
+
+
+  <!-- CARRUSEL DE OFERTAS -->
+  <div class="carrusel-ofertas">
+    <div class="carrusel-track">
+      <div class="oferta-item">🔥 Descuento del 20% en Jordan 1 - ¡Solo por hoy!</div>
+      <div class="oferta-item">⚡ Nuevos ingresos de Nike Dunk Low. Míralos abajo.</div>
+      <div class="oferta-item">🚚 Envío gratis en pedidos mayores a S/ 500</div>
     </div>
-    <i class="bi bi-bag" id="icono-carrito"></i>
-  </nav>
+  </div>
 
   <main>
+    <!-- SECCIÓN DE FILTROS -->
+    <div class="filtros-container">
+      <h4>Filtros Avanzados <i class="bi bi-funnel"></i></h4>
+      <div class="filtros-opciones">
+        <label>Precio Máximo: S/ <span id="valor-precio">1000</span></label>
+        <input type="range" id="filtro-precio" min="0" max="1500" value="1000" step="50">
+        <button id="btn-limpiar-filtros">Limpiar Filtros</button>
+      </div>
+    </div>
+
     <h3 class="high">HIGH</h3>
     <section id="galeria"></section>
     <div id="catalogo-high" class="galeria"></div>
@@ -84,12 +110,16 @@
   <!-- todos los scripts cargados segun la ruta -->
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/ui.js"></script>
   <script src="js/supabase.js"></script>
   <script src="js/usuario.js"></script>
   <script src="js/catalago.js"></script>
   <script src="js/carrito.js"></script>
   <script src="js/busqueda.js"></script>
 
+
+  <!-- TOAST CONTAINER PARA NOTIFICACIONES -->
+  <div id="toast-container"></div>
 
 </body>
 

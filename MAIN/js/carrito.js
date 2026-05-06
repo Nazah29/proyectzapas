@@ -77,12 +77,46 @@ document.addEventListener("DOMContentLoaded", () => {
         carrito.classList.add("activo");
     });
 
-    btnComprar.addEventListener("click", () => {
+    btnComprar.addEventListener("click", async () => {
         if(itemsCarrito.length === 0){
-            alert("El carrito está vacío");
+            if (window.mostrarToast) window.mostrarToast("El carrito está vacío", "error");
+            else alert("El carrito está vacío");
             return;
         }
-        alert("¡Compra realizada!");
+
+        const usuarioStr = localStorage.getItem("usuarioLogueado");
+        
+        // Si hay usuario logueado, intentar registrar el pedido en la DB
+        if (usuarioStr && window.supabaseClient) {
+            btnComprar.textContent = "Procesando...";
+            btnComprar.disabled = true;
+            try {
+                const usuario = JSON.parse(usuarioStr);
+                const totalPedido = itemsCarrito.reduce((acc, item) => acc + item.precio, 0);
+                
+                // Cuando crees la tabla 'pedidos', esto insertará la orden
+                const { error } = await window.supabaseClient.from("pedidos").insert([
+                    {
+                        usuario_id: usuario.id,
+                        total: totalPedido,
+                        estado: 'Pendiente',
+                        detalles: JSON.stringify(itemsCarrito)
+                    }
+                ]);
+                
+                if (error) {
+                    console.error("Error guardando pedido:", error);
+                }
+            } catch(e) {
+                console.error("Error en el proceso de compra", e);
+            }
+            btnComprar.textContent = "Comprar";
+            btnComprar.disabled = false;
+        }
+
+        if (window.mostrarToast) window.mostrarToast("¡Compra realizada con éxito!", "success");
+        else alert("¡Compra realizada!");
+
         itemsCarrito = [];
         actualizarCarrito();
         carrito.classList.remove("activo");

@@ -108,6 +108,7 @@ nav {
   background-color: #000;
   display: flex;
   justify-content: center;
+  align-items: center;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -116,11 +117,18 @@ nav {
   font-size: 25px;
 }
 
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
 nav a {
   color: #fff;
   text-decoration: none;
   padding: 15px 40px;
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
 nav a:hover {
@@ -153,6 +161,7 @@ nav .buscador::placeholder {
     position: relative;
     display: flex;
     align-items: center;
+    padding: 15px 40px;
 }
 
 #icono-buscar {
@@ -470,64 +479,93 @@ tr:nth-child(even) {
 .carrito {
   position: fixed;
   top: 0;
-  right: -350px;
-  width: 320px;
+  right: -420px;
+  width: 380px;
   height: 100vh;
-  background: #111; /* fondo oscuro moderno */
+  background: rgba(15, 15, 15, 0.85); /* Glassmorphism oscuro */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
   color: #fff;
-  box-shadow: -4px 0 20px rgba(0,0,0,0.5);
-  transition: right 0.3s ease;
-  padding: 20px;
+  box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+  transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  padding: 30px 25px;
   z-index: 9999;
   display: flex;
   flex-direction: column;
+  font-family: "Quicksand", sans-serif;
+  box-sizing: border-box;
 }
 
 .carrito.activo {
   right: 0;
 }
 
+.carrito-contenido {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
 .carrito-contenido h2 {
-  margin: 0 0 20px 0;
+  margin: 0 0 25px 0;
   font-family: "BBH Sans Hegarty", sans-serif;
-  font-size: 28px;
-  border-bottom: 1px solid #444;
-  padding-bottom: 10px;
+  font-size: 32px;
+  border-bottom: 2px solid #c8102e;
+  padding-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .cerrar-btn {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  font-size: 26px;
+  top: -5px;
+  right: 0;
+  font-size: 36px;
   cursor: pointer;
   color: #fff;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  line-height: 1;
 }
 
 .cerrar-btn:hover {
   color: #c8102e;
+  transform: rotate(90deg);
 }
+
 #carrito-items {
   flex: 1; /* ocupa el espacio disponible */
   overflow-y: auto;
   margin-bottom: 20px;
+  padding-right: 10px;
 }
 
 .carrito-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid #444;
+  padding: 15px;
+  margin-bottom: 15px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
+
+.carrito-item:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(200, 16, 46, 0.4);
 }
 
 .carrito-item img {
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
   object-fit: cover;
-  border-radius: 6px;
-  margin-right: 10px;
+  border-radius: 8px;
+  margin-right: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
 .carrito-item-info {
@@ -535,68 +573,92 @@ tr:nth-child(even) {
 }
 
 .carrito-item-info h4 {
-  margin: 0 0 5px 0;
+  margin: 0 0 8px 0;
   font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
 .carrito-item-info p {
   margin: 0;
-  font-size: 14px;
-  color: #ccc;
+  font-size: 15px;
+  color: #aaa;
+  font-weight: 600;
 }
 
 .carrito-item-remove {
   cursor: pointer;
-  font-size: 18px;
-  color: #c8102e;
-  transition: transform 0.2s ease;
+  font-size: 20px;
+  color: #ff4d4d;
+  transition: all 0.2s ease;
+  padding: 5px;
 }
 
 .carrito-item-remove:hover {
-  transform: scale(1.2);
-}
-
-  
-.carrito.activo {
-  right: 0; /* aparece */
+  transform: scale(1.3);
+  color: #ff1a1a;
 }
 
 #icono-carrito {
-    color: #fff; /* blanco */
+  color: #fff; /* blanco */
+  cursor: pointer;
+  padding: 15px 40px;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+#icono-carrito:hover {
+  color: #c8102e;
+  transform: scale(1.1);
 }
 
 .carrito-total {
-  font-size: 18px;
-  margin-bottom: 15px;
-  border-top: 1px solid #444;
-  padding-top: 10px;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  font-family: "BBH Sans Hegarty", sans-serif;
+  letter-spacing: 1px;
+}
+
+#carrito-total {
+  color: #c8102e;
 }
 
 .btn-comprar {
-  background-color: #c8102e;
+  background: linear-gradient(135deg, #c8102e, #a00);
   border: none;
   color: #fff;
-  padding: 12px;
+  padding: 16px;
   width: 100%;
   border-radius: 12px;
   cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(200, 16, 46, 0.4);
 }
 
 .btn-comprar:hover {
-  background-color: #a00;
-  transform: scale(1.03);
+  background: linear-gradient(135deg, #e61435, #c8102e);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(200, 16, 46, 0.6);
 }
 
-.carrito.activo {
-  right: 0;
-  transition: right 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-}
 #carrito-items::-webkit-scrollbar {
   width: 6px;
+}
+
+#carrito-items::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.2);
+  border-radius: 3px;
 }
 
 #carrito-items::-webkit-scrollbar-thumb {
@@ -604,24 +666,229 @@ tr:nth-child(even) {
   border-radius: 3px;
 }
 
-
 /* --------------------------
-   BOTÓN: Agregar al Carrito
+   BOTÓN: Agregar al Carrito (Modal)
 ---------------------------*/
 .btn-agregar {
     background: #111;
     color: white;
     border: none;
-    padding: 12px 25px;
-    font-size: 1rem;
+    padding: 14px 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
     width: 100%;
     border-radius: 12px;
     cursor: pointer;
-    margin-top: 15px;
-    transition: .3s ease;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .btn-agregar:hover {
     background: #c8102e;
-    transform: scale(1.03);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(200, 16, 46, 0.3);
 }
+
+/* =========================================================
+   NUEVAS FUNCIONALIDADES (FASE 1 & 2)
+========================================================= */
+
+/* --- TOAST NOTIFICATIONS --- */
+#toast-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.toast {
+    background: rgba(15, 15, 15, 0.95);
+    color: #fff;
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border-left: 5px solid #c8102e;
+}
+.toast.success { border-left-color: #28a745; }
+.toast.error { border-left-color: #dc3545; }
+.toast.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* --- CARRUSEL DE OFERTAS --- */
+.carrusel-ofertas {
+    width: 100%;
+    background-color: #c8102e;
+    color: #fff;
+    padding: 10px 0;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    white-space: nowrap;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+.carrusel-track {
+    display: flex;
+    gap: 50px;
+    animation: scroll-carrusel 20s linear infinite;
+}
+.oferta-item {
+    display: inline-block;
+}
+@keyframes scroll-carrusel {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+/* --- FILTROS AVANZADOS --- */
+.filtros-container {
+    background: rgba(20, 20, 20, 0.8);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    color: #fff;
+    font-family: "Quicksand", sans-serif;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.filtros-container h4 {
+    margin: 0 0 15px 0;
+    font-size: 20px;
+    font-weight: 600;
+    border-bottom: 1px solid #444;
+    padding-bottom: 10px;
+    color: #c8102e;
+}
+.filtros-opciones {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.filtros-opciones label {
+    font-size: 16px;
+    font-weight: 600;
+}
+input[type=range] {
+    -webkit-appearance: none;
+    width: 250px;
+    background: transparent;
+}
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    background: #c8102e;
+    cursor: pointer;
+    margin-top: -6px;
+    box-shadow: 0 0 10px rgba(200, 16, 46, 0.8);
+}
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 6px;
+    cursor: pointer;
+    background: #444;
+    border-radius: 3px;
+}
+#btn-limpiar-filtros {
+    background: #333;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-family: "Quicksand", sans-serif;
+}
+#btn-limpiar-filtros:hover {
+    background: #c8102e;
+}
+
+/* --- FAVORITOS (CORAZÓN EN CARD) --- */
+.card {
+    position: relative; /* Asegurar que el corazón se posicione relativo a la tarjeta */
+}
+.btn-favorito {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #fff;
+    font-size: 18px;
+    transition: 0.3s ease;
+    z-index: 10;
+}
+.btn-favorito:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
+}
+.btn-favorito.activo {
+    color: #c8102e; /* Rojo cuando es favorito */
+}
+
+/* --- MENÚ HAMBURGUESA (RESPONSIVE) --- */
+.hamburguesa {
+    display: none;
+    color: #fff;
+    font-size: 30px;
+    cursor: pointer;
+    padding: 10px 20px;
+}
+
+@media (max-width: 900px) {
+    .hamburguesa {
+        display: block;
+    }
+    nav {
+        justify-content: space-between;
+        padding: 0 10px;
+    }
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #000;
+        flex-direction: column;
+        border-top: 1px solid #333;
+    }
+    .nav-links.activo {
+        display: flex;
+    }
+    .nav-links a {
+        padding: 15px 20px;
+        border-bottom: 1px solid #222;
+        justify-content: space-between;
+    }
+    .busqueda-toggle {
+        display: none; /* Opcional: Ocultar o adaptar barra de búsqueda en móvil */
+    }
+}
+
