@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("usuarioLogueado", JSON.stringify(data[0]));
 
         setTimeout(() => {
-          window.location.href = "MAIN/index.html";
+          window.location.href = "index.html";
         }, 1000);
       }
     } catch (err) {
